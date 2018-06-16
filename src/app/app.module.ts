@@ -8,6 +8,24 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 // pluing de google
 import { Geolocation } from '@ionic-native/geolocation';
+//sacar foto
+import { Platform } from 'ionic-angular';
+//firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AuthProvider } from '../providers/auth/auth';
+import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyC6_ms-Vn_NQkXov2gRQtw_fK5sBVu8qbs",
+    authDomain: "misfincas-e2553.firebaseapp.com",
+    databaseURL: "https://misfincas-e2553.firebaseio.com",
+    projectId: "misfincas-e2553",
+    storageBucket: "misfincas-e2553.appspot.com",
+    messagingSenderId: "26601236566"
+};
+
 
 @NgModule({
   declarations: [
@@ -16,7 +34,10 @@ import { Geolocation } from '@ionic-native/geolocation';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -27,7 +48,10 @@ import { Geolocation } from '@ionic-native/geolocation';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Geolocation
+    Geolocation,
+    Platform,
+    AuthProvider,
+    FirebaseDbProvider
   ]
 })
 export class AppModule {}
